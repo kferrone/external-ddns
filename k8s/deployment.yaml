@@ -8,9 +8,14 @@ spec:
       app: external-ddns
   template:
     spec:
+      volumes:
+      - name: certs
+        secret:
+          secretName: external-ddns-cert
       containers:
       - name: external-ddns
         image: kferrone/external-ddns:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: 128Mi
@@ -18,14 +23,19 @@ spec:
         envFrom:
         - configMapRef:
             name: external-ddns-env
+        volumeMounts:
+        - name: certs
+          mountPath: /app/certs
         ports:
         - name: https
           containerPort: 3000
         livenessProbe:
           httpGet:
             path: /health/liveliness
-            port: http
+            port: https
+            scheme: HTTPS
         readinessProbe:
           httpGet:
             path: /health/readiness
-            port: http
+            port: https
+            scheme: HTTPS

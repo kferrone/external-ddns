@@ -16,7 +16,7 @@
     "start": "NODE_PATH=dist node -r reflect-metadata dist",
     "serve": "APP_ENTRY=src npm run tsnode",
     "test": "nyc mocha src/tests/**/${npm_config_suite:='*'}.test.ts",
-    "build": "TS_NODE_FILES=true tsc -p tsconfig.prod.json",
+    "build": "tsc -p tsconfig.prod.json",
     "watch": "nodemon src",
     "tsnode": "NODE_PATH=src TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.json node -r source-map-support/register -r reflect-metadata -r ts-node/register $APP_ENTRY"
   },
@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@kubernetes/client-node": "^0.14.3",
+    "convict": "^6.1.0",
     "convict-format-with-validator": "^6.0.1",
     "express": "^4.17.1",
     "helmet": "^4.6.0",

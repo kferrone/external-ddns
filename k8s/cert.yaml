@@ -7,6 +7,8 @@ spec:
   dnsNames:
   - external-ddns
   - external-ddns.network
+  - external-ddns.network.svc
   - external-ddns.network.svc.cluster.local
   issuerRef:
-    name: selfsigned
+    name: local
+    kind: ClusterIssuer

@@ -12,4 +12,4 @@ rules:
   - networking.k8s.io/v1
   resources:
   - services
-  - ingress
+  - ingresses

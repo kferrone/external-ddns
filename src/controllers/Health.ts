@@ -6,17 +6,17 @@ import { Request } from 'express';
 
 
 @controller('/health')
-export class MutatingWebhook {
+export class HealthMonitor {
 
   constructor() { }
 
-  @httpPost('/liveliness')
+  @httpGet('/liveliness')
   public async livelinessProbe(request: Request): Promise<any> {
-    return Promise.resolve("alive");
+    return Promise.resolve({status: "alive"});
   }
 
-  @httpPost('/readiness')
+  @httpGet('/readiness')
   public async readinessProbe(request: Request): Promise<any> {
-    return Promise.resolve("ready");
+    return Promise.resolve({status: "ready"});
   }
 }

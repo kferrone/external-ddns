@@ -7,9 +7,13 @@ import { Container } from "inversify";
 import { buildProviderModule } from "inversify-binding-decorators";
 import { TSConvict } from 'ts-convict';
 import { ExternalDdnsConfig } from "config/Config";
+import * as https from "https";
+import * as http from "http";
+import * as fs from "fs";
 
 // import all the provider bindings
 import "controllers/MutatingWebhook";
+import "controllers/Health";
 import "services/IpService";
 
 // load the container
@@ -21,15 +25,24 @@ const config = new TSConvict<ExternalDdnsConfig>(ExternalDdnsConfig).load();
 
 // build the express app
 let server = new InversifyExpressServer(container);
-server.setConfig((theApp) => {
-  theApp.use(bodyParser.urlencoded({
+server.setConfig((app) => {
+  app.use(bodyParser.urlencoded({
     extended: true
   }));
-  theApp.use(bodyParser.json());
-  theApp.use(helmet());
+  app.use(bodyParser.json());
+  app.use(helmet());
 });
-let app = server.build();
-app.listen(config.port);
-console.log(`Server started on port ${config.port}`);
 
-exports = module.exports = app;
+const srvOptions: https.ServerOptions = {};
+const app = server.build();
+let srv: any = app;
+if (config.sslEnabled) {
+  srvOptions.key = fs.readFileSync(config.sslKey);
+  srvOptions.cert = fs.readFileSync(config.sslCert);
+  // if (fs.existsSync(config.sslCA)) srvOptions.ca = fs.readFileSync(config.sslCA);
+  srv = https.createServer(srvOptions, app);
+}
+
+srv.listen(config.port, ()=> {
+  console.log(`Server started on port ${config.port}`);
+});
