@@ -4,6 +4,13 @@
   "request": {
     "uid": "1234567890",
     "name": "my-ingress",
-    "namespace": "default"
+    "namespace": "default",
+    "object": {
+      "metadata": {
+        "annotations": {
+          
+        }
+      }
+    }
   }
 }

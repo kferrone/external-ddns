@@ -20,8 +20,8 @@ webhooks:
     service:
       name: external-ddns
       namespace: ""
-      path: "/mutate"
-      port: 3000
+      path: "/ddns"
+      port: 443
   rules:
   - scope: "*"
     operations:
@@ -29,6 +29,7 @@ webhooks:
     - UPDATE
     apiGroups:
     - ""
+    - networking.k8s.io
     apiVersions:
     - v1
     resources: 

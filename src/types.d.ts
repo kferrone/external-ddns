@@ -1,11 +1,13 @@
 
+declare type PatchOperation = "add" | "replace" | "remove";
+
 declare interface IpService {
   getIpV4(): Promise<string>;
   getIpV6(): Promise<string>;
 }
 
 declare interface JsonPatch {
-  op: "add" | "replace" | "remove",
+  op: PatchOperation,
   path: string,
   value: string;
 }

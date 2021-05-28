@@ -18,4 +18,4 @@ configurations:
 configMapGenerator:
 - name: external-ddns-env
   literals:
-  - SERVER_PORT=443
+  - SERVER_PORT=3000
