@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  external-ddns:
+    build: .
+    image: kferrone/external-ddns:${VERSION}
+    container_name: external-ddns
+    hostname: external-ddns
+    ports:
+    - 3000:3000

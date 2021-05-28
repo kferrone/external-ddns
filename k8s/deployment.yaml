@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-ddns
+spec:
+  selector:
+    matchLabels:
+      app: external-ddns
+  template:
+    spec:
+      containers:
+      - name: external-ddns
+        image: kferrone/external-ddns:latest
+        resources:
+          limits:
+            memory: 128Mi
+            cpu: 500m
+        envFrom:
+        - configMapRef:
+            name: external-ddns-env
+        ports:
+        - name: https
+          containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /health/liveliness
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /health/readiness
+            port: http

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/mocharc",
+  "ui": "bdd",
+  "color": true,
+  "reporter": "mocha-multi-reporters",
+  "reporter-option": [
+    "configFile=mocha-reports.json"
+  ],
+  "require": [
+    "reflect-metadata",
+    "ts-node/register",
+    "source-map-support/register",
+    "mochawesome/register",
+    "mocha-multi-reporters"
+  ],
+  "extension": [
+    "ts",
+    "test.ts"
+  ]
+}

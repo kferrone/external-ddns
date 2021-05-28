@@ -1,0 +1,26 @@
+CHANGELOG*
+CONTRIBUTING*
+**/README*
+*.bak
+logs
+docs
+config
+public
+mocha*
+npm-debug.log
+typedoc.json
+nodemon.json
+modules/tests
+
+# no generated stuff
+node_modules
+**/dist
+**/*.tsbuildinfo
+
+# skip all the hidden stuff
+**/.*
+
+# don't actually copy the cloud files
+Dockerfile
+docker-compose.yml
+chart

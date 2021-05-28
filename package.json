@@ -1,0 +1,63 @@
+{
+  "name": "external-ddns",
+  "version": "1.0.0",
+  "description": "Adds ddns functionality to the external-dns k8s operator",
+  "homepage": "https://github.com/kferrone/external-ddns",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kferrone/external-ddns.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kferrone/external-ddns/issues"
+  },
+  "private": "true",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "NODE_PATH=dist node -r reflect-metadata dist",
+    "serve": "APP_ENTRY=src npm run tsnode",
+    "test": "nyc mocha src/tests/**/${npm_config_suite:='*'}.test.ts",
+    "build": "TS_NODE_FILES=true tsc -p tsconfig.prod.json",
+    "watch": "nodemon src",
+    "tsnode": "NODE_PATH=src TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.json node -r source-map-support/register -r reflect-metadata -r ts-node/register $APP_ENTRY"
+  },
+  "author": "Kelly Ferrone",
+  "license": "ISC",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.14.3",
+    "convict-format-with-validator": "^6.0.1",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "inversify": "^5.1.1",
+    "inversify-binding-decorators": "^4.0.0",
+    "inversify-express-utils": "^6.3.2",
+    "js-yaml": "^3.14.1",
+    "mocha-multi-reporters": "^1.5.1",
+    "public-ip": "^4.0.3",
+    "reflect-metadata": "^0.1.13",
+    "ts-convict": "^1.1.0"
+  },
+  "devDependencies": {
+    "@testdeck/mocha": "^0.1.2",
+    "@types/chai": "^4.2.18",
+    "@types/convict": "^6.0.2",
+    "@types/convict-format-with-validator": "^6.0.2",
+    "@types/express": "^4.17.12",
+    "@types/js-yaml": "^3.12.6",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.6.1",
+    "@typescript-eslint/parser": "^4.25.0",
+    "chai": "^4.3.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "mocha": "^8.4.0",
+    "mocha-junit-reporter": "^2.0.0",
+    "mochawesome": "^6.2.2",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "prettier": "^2.3.0",
+    "pretty-quick": "^3.1.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  }
+}

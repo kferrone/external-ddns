@@ -1,0 +1,5 @@
+# https://github.com/kubernetes-sigs/kustomize/tree/master/api/konfig/builtinpluginconsts
+namespace:
+- path: webhooks/clientConfig/service/namespace
+  kind: MutatingWebhookConfiguration
+  create: true

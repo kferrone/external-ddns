@@ -1,0 +1,36 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: external-ddns
+  annotations:
+    cert-manager.io/inject-ca-from: network/external-ddns
+webhooks:
+- name: com.kellyferrone.external-ddns
+  sideEffects: None
+  admissionReviewVersions:
+  - v1
+  - v1beta1
+  matchPolicy: Equivalent
+  failurePolicy: Fail
+  objectSelector:
+    matchLabels:
+      external-ddns: "true"
+  clientConfig:
+    caBundle: ""
+    service:
+      name: external-ddns
+      namespace: ""
+      path: "/mutate"
+      port: 3000
+  rules:
+  - scope: "*"
+    operations:
+    - CREATE
+    - UPDATE
+    apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    resources: 
+    - services
+    - ingress

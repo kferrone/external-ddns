@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/nodemon.json",
+  "watch": [
+    "src/"
+  ],
+  "ext": "ts",
+  "script": "src/index.ts",
+  "ignore": [
+    "*.test.ts",
+    "node_modules",
+    "dist"
+  ],
+  "delay": 3,
+  "exec": "node",
+  "nodeArgs": [
+    "-r", "reflect-metadata",
+    "-r", "ts-node/register"
+  ],
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "env": {
+    "NODE_PATH": "src"
+  }
+}

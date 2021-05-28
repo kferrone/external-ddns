@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: external-ddns
+spec:
+  secretName: external-ddns-cert
+  dnsNames:
+  - external-ddns
+  - external-ddns.network
+  - external-ddns.network.svc.cluster.local
+  issuerRef:
+    name: selfsigned
