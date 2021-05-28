@@ -17,7 +17,7 @@ export class MutatingWebhook {
 
   @httpPost('/')
   public async newUser(@requestBody() addmissionReview: AdmissionReview): Promise<AdmissionReview> {
-    console.log(addmissionReview);
+    // console.log(addmissionReview);
 
     // initialize a minimal response
     const response: AdmissionResponse = {
@@ -45,11 +45,12 @@ export class MutatingWebhook {
     }
 
     // now send back the review with the response
+    console.log(response);
     addmissionReview.response = response;
     return addmissionReview;
   }
 
   private makePatch(op: PatchOperation, value: string): string {
-    return Buffer.from(JSON.stringify([{ op, path, value }]), "base64").toString();
+    return Buffer.from(JSON.stringify([{ op, path, value }])).toString("base64");
   }
 }
