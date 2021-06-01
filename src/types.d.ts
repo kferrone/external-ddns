@@ -1,4 +1,31 @@
 
+declare interface ServerConfig {
+  port: string
+}
+
+declare interface SslConfig {
+  sslEnabled: boolean,
+  sslCert: string,
+  sslKey: string,
+  sslCA: string
+}
+
+declare interface CronConfig {
+  cronSchedule: string
+}
+
+declare interface ExternalDdnsConfig extends ServerConfig, SslConfig, CronConfig {}
+
+declare interface Server {
+  start(): Promise<void>,
+  stop(): Promise<void>
+}
+
+declare interface Applet {
+  start(): void;
+  stop(): void;
+}
+
 declare type PatchOperation = "add" | "replace" | "remove";
 
 declare interface IpService {

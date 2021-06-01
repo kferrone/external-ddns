@@ -1,5 +1,4 @@
 import * as publicIp from "public-ip";
-import { injectable } from 'inversify';
 import { service } from "ioc";
 
 @service("ip")

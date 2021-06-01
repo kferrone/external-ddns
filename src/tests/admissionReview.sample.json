@@ -7,6 +7,9 @@
     "namespace": "default",
     "object": {
       "metadata": {
+        "labels": {
+          "external-ddns": "true"
+        },
         "annotations": {
           
         }

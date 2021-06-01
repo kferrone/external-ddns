@@ -1,6 +1,7 @@
 import { Property, Config } from 'ts-convict';
 import { url, ipaddress } from 'convict-format-with-validator';
 import * as yaml from 'js-yaml';
+import { injectable } from "inversify";
 
 const cwd = process.cwd();
 
@@ -16,7 +17,8 @@ const cwd = process.cwd();
     },
     validationMethod: 'warn'
 })
-export class ExternalDdnsConfig {
+@injectable()
+export class ExternalDdnsConvict {
 
   @Property({
     doc: "The port for the app to listen on",

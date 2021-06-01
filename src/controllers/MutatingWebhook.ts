@@ -2,6 +2,7 @@ import {
   controller, httpPost, requestBody
 } from 'inversify-express-utils';
 import { inject, named } from 'inversify';
+import { APP } from "CONST";
 
 const targetAnnotation = "external-dns.alpha.kubernetes.io/target";
 const path = "/metadata/annotations/external-dns.alpha.kubernetes.io~1target"
@@ -10,7 +11,7 @@ const path = "/metadata/annotations/external-dns.alpha.kubernetes.io~1target"
 export class MutatingWebhook {
 
   constructor(
-    @inject("Service")
+    @inject(APP.SERVICE)
     @named("ip")
     private ipService: IpService
   ) { }
