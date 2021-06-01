@@ -10,7 +10,7 @@ import { ExternalDdnsConfig } from "config/Config";
 import * as https from "https";
 import * as http from "http";
 import * as fs from "fs";
-import { APP } from "TYPES";
+import { APP } from "CONST";
 
 // import all the provider bindings
 import "controllers/MutatingWebhook";
