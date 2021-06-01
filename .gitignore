@@ -8,3 +8,4 @@ public
 .coveralls.yml
 /certs
 /logs
+/config

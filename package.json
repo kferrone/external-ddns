@@ -33,6 +33,7 @@
     "inversify-express-utils": "^6.3.2",
     "js-yaml": "^3.14.1",
     "mocha-multi-reporters": "^1.5.1",
+    "node-cron": "^3.0.0",
     "public-ip": "^4.0.3",
     "reflect-metadata": "^0.1.13",
     "ts-convict": "^1.1.0"

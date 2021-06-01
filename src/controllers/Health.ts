@@ -1,9 +1,4 @@
-import {
-  controller, httpGet, httpPost, httpPut, httpDelete
-} from 'inversify-express-utils';
-import { inject, named } from 'inversify';
-import { Request } from 'express';
-
+import { controller, httpGet } from 'inversify-express-utils';
 
 @controller('/health')
 export class HealthMonitor {
@@ -11,12 +6,12 @@ export class HealthMonitor {
   constructor() { }
 
   @httpGet('/liveliness')
-  public async livelinessProbe(request: Request): Promise<any> {
+  public async livelinessProbe(): Promise<any> {
     return Promise.resolve({status: "alive"});
   }
 
   @httpGet('/readiness')
-  public async readinessProbe(request: Request): Promise<any> {
+  public async readinessProbe(): Promise<any> {
     return Promise.resolve({status: "ready"});
   }
 }

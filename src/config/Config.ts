@@ -53,4 +53,11 @@ export class ExternalDdnsConfig {
   })
   public sslCA: string;
 
+  @Property({
+    doc: "The schedule for when to check for IP changes",
+    default: "* * * * *",
+    env: "CRON_SCHEDULE"
+  })
+  public cronSchedule: string;
+
 }
