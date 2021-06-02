@@ -14,11 +14,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_PATH=dist node -r reflect-metadata dist",
-    "serve": "APP_ENTRY=src npm run tsnode",
-    "test": "nyc mocha src/tests/**/${npm_config_suite:='*'}.test.ts",
+    "test": "nyc mocha src/tests/**/*.test.ts",
     "build": "tsc -p tsconfig.prod.json",
     "watch": "nodemon src",
-    "tsnode": "NODE_PATH=src TS_NODE_FILES=true TS_NODE_PROJECT=tsconfig.json node -r source-map-support/register -r reflect-metadata -r ts-node/register $APP_ENTRY"
+    "serve": "node -r source-map-support/register -r reflect-metadata -r ts-node/register $NODE_PATH"
   },
   "author": "Kelly Ferrone",
   "license": "ISC",

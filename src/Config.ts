@@ -62,4 +62,11 @@ export class ExternalDdnsConvict {
   })
   public cronSchedule: string;
 
+  @Property({
+    doc: "The NODE_ENV for the running apps context",
+    default: "development",
+    env: "NODE_ENV"
+  })
+  public env: string;
+
 }

@@ -14,11 +14,13 @@ declare interface CronConfig {
   cronSchedule: string
 }
 
-declare interface ExternalDdnsConfig extends ServerConfig, SslConfig, CronConfig {}
+declare interface ExternalDdnsConfig extends ServerConfig, SslConfig, CronConfig {
+  env: string
+}
 
 declare interface Server {
-  start(): Promise<void>,
-  stop(): Promise<void>
+  start(): Promise<void> | void,
+  stop(): Promise<void> | void
 }
 
 declare interface Applet {

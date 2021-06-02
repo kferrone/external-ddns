@@ -7,7 +7,8 @@
         "src/test"
     ],
     "extension": [
-        ".ts"
+        ".ts",
+        ".d.ts"
     ],
     "require": [
         "reflect-metadata",

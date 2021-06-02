@@ -5,16 +5,13 @@ import { Providers, Bindings } from "modules";
 import { APP } from "CONST";
 
 // make a container
-const container = new Container();
+const container = new Container({skipBaseClassChecks: true});
 
-// load modules which bind all of the imported features
+// load modules which bind all of the apps features
 container.load(Providers);
 container.load(Bindings);
 
-// start the cron job runner
-const cron = container.getNamed<Applet>(APP.SERVICE, "cron");
-cron.start();
-
-// start the server to listen for hooks and health checks
+// start the server
 const server = container.get<Server>(APP.SERVER);
 (async ()=> await server.start())()
+

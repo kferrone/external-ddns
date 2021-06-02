@@ -1,5 +1,5 @@
 import { server } from "ioc";
-import { inject } from "inversify";
+import { inject, named } from "inversify";
 import { APP } from "CONST";
 import { interfaces } from "inversify-express-utils";
 import { Application } from "express";
@@ -10,40 +10,56 @@ import * as http from "http";
 import * as fs from "fs";
 
 @server()
-export class ExpressServer {
-
-  private app: Application;
+export class ExpressServer implements Server {
 
   private config: ExternalDdnsConfig;
+
+  private cron: Server;
+
+  private server: http.Server;
 
   constructor(
     @inject(APP.CONFIG)
     config: ExternalDdnsConfig,
     @inject(APP.APP_FACTORY)
-    buildApp: (configure: interfaces.ConfigFunction)=>any
+    buildApp: (configure: interfaces.ConfigFunction)=>any,
+    @inject(APP.SERVICE)
+    @named("cron")
+    cron: Server
   ) {
     this.config = config;
-    this.app = buildApp((app) => {
+    this.cron = cron;
+    this.setServer(buildApp((app) => {
       app.use(bodyParser.urlencoded({
         extended: true
       }));
       app.use(bodyParser.json());
       app.use(helmet());
-    });
+    }));
   }
 
   public async start(): Promise<void> {
-    const srv = this.getServer();
     const port = this.config.port;
     return new Promise((resolve) => {
-      srv.listen(port, ()=> {
+      this.server.listen(port, async ()=> {
         console.log(`Server started on port ${port}`);
+        await this.cron.start();
         resolve();
       });
     });
   }
 
-  private getServer(): http.Server {
+  public async stop(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.server.close((err) => {
+        this.cron.stop();
+        if (err) reject(err);
+        resolve();
+      })
+    })
+  }
+
+  private setServer(app: Application): void {
     const options: https.ServerOptions & http.ServerOptions = {};
     let srv: typeof http | typeof https;
     if (this.config.sslEnabled) {
@@ -53,7 +69,7 @@ export class ExpressServer {
     } else {
       srv = http;
     }
-    return srv.createServer(options, this.app);
+    this.server = srv.createServer(options, app);
   }
 
 }
